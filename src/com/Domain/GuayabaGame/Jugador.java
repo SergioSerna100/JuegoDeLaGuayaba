@@ -1,34 +1,40 @@
 package com.Domain.GuayabaGame;
 
+import java.util.ArrayList;
+
 public class Jugador
 {
-    private static String nombre;
-    private static String nombreUsuario;
+    private String nombre;
+    private String nombreUsuario;
     private int dinero;
 
-    public Jugador(int dinero)
+    public Jugador(String nombre, String nombreUsuario, int dinero)
     {
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
         this.dinero = dinero;
     }
 
-    public static String getNombre()
+    public String getNombre()
     {
         return nombre;
     }
 
-    public static void setNombre(String nombre)
+    public Jugador setNombre(String nombre)
     {
-        Jugador.nombre = nombre;
+        this.nombre = nombre;
+        return null;
     }
 
-    public static String getNombreUsuario()
+    public String getNombreUsuario()
     {
         return nombreUsuario;
     }
 
-    public static void setNombreUsuario(String nombreUsuario)
+    public ArrayList<Jugador> setNombreUsuario(String nombreUsuario)
     {
-        Jugador.nombreUsuario = nombreUsuario;
+        this.nombreUsuario = nombreUsuario;
+        return null;
     }
 
     public int getDinero()
@@ -36,8 +42,9 @@ public class Jugador
         return dinero;
     }
 
-    public void setDinero(int dinero)
+    public ArrayList<Jugador> setDinero(int dinero)
     {
         this.dinero = dinero;
+        return null;
     }
 }

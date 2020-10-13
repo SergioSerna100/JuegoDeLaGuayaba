@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Guayaba
 {
-    private static String instrucciones;
     private int pote = 0;
     private ArrayList<Jugador> jugadores = new ArrayList<>();
 
@@ -12,16 +11,6 @@ public class Guayaba
     {
         this.pote = pote;
         this.jugadores = jugadores;
-    }
-
-    public static String getInstrucciones()
-    {
-        return instrucciones;
-    }
-
-    public static void setInstrucciones(String instrucciones)
-    {
-        Guayaba.instrucciones = instrucciones;
     }
 
     public int getPote()
@@ -39,8 +28,9 @@ public class Guayaba
         return jugadores;
     }
 
-    public void setJugadores(ArrayList<Jugador> jugadores)
+    public ArrayList<Jugador> setJugadores(ArrayList<Jugador> jugadores)
     {
         this.jugadores = jugadores;
+        return jugadores;
     }
 }

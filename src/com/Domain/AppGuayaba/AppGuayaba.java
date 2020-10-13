@@ -1,7 +1,11 @@
 package com.Domain.AppGuayaba;
 
+import com.Domain.GuayabaGame.Guayaba;
+import com.Domain.GuayabaGame.Jugador;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AppGuayaba
@@ -26,7 +30,56 @@ public class AppGuayaba
             switch (opcionElegida)
             {
                 case JUGAR: {
-                    mostrarMensaje("Jotos");
+                        int numeroJugadores = (int) JOptionPane.showInputDialog(null, "Ingrese la cantidad " +
+                                "de Jugadores: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                "2");
+
+                        if (numeroJugadores < 2)
+                        {
+                            mostrarMensaje("El numero de jugadores NO puede ser menor que dos");
+                        }
+                        else{
+                            ArrayList<Jugador> Informacion = new ArrayList<>();
+                            Jugador informacionUsuario[] = new Jugador[3];
+                            Guayaba juego = new Guayaba(0, Informacion);
+
+                            for(int i = 0; i < numeroJugadores; i++)
+                            {
+
+                                for(int j = 0; j < 3; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 0:
+                                        {
+                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setNombre((String) JOptionPane.showInputDialog(null,
+                                                    "Usuario" + (i+1) + "\nIngrese el nombre del Jugador: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                                    "Nombre Completo"))));
+                                            break;
+                                        }
+                                        case 1:
+                                        {
+                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setNombreUsuario((String) JOptionPane.showInputDialog(null,
+                                                    "Usuario" + (i+1) + "\nIngrese el nombre de Usuario: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                                    "Nombre De Usuario"))));
+                                            break;
+                                        }
+                                        case 2:
+                                        {
+                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setDinero((int) JOptionPane.showInputDialog(null,
+                                                    "Usuario" + (i+1) + "\nIngrese el nombre del Jugador: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                                    "0"))));
+                                            break;
+                                        }
+                                        default:
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
                     break;
                 }
                 case INSTRUCCIONES: {
