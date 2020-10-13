@@ -20,10 +20,9 @@ public class Jugador
         return nombre;
     }
 
-    public Jugador setNombre(String nombre)
+    public void setNombre(String nombre)
     {
         this.nombre = nombre;
-        return null;
     }
 
     public String getNombreUsuario()
@@ -31,10 +30,9 @@ public class Jugador
         return nombreUsuario;
     }
 
-    public ArrayList<Jugador> setNombreUsuario(String nombreUsuario)
+    public void setNombreUsuario(String nombreUsuario)
     {
         this.nombreUsuario = nombreUsuario;
-        return null;
     }
 
     public int getDinero()
@@ -42,9 +40,8 @@ public class Jugador
         return dinero;
     }
 
-    public ArrayList<Jugador> setDinero(int dinero)
+    public void setDinero(int dinero)
     {
         this.dinero = dinero;
-        return null;
     }
 }
