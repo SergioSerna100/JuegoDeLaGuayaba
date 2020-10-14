@@ -44,4 +44,6 @@ public class Jugador
     {
         this.dinero = dinero;
     }
+
+
 }

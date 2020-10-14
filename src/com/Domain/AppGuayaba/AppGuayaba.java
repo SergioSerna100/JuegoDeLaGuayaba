@@ -16,6 +16,7 @@ public class AppGuayaba
 
     public static void main(String[] args)
     {
+        Guayaba juego = new Guayaba("Guayaba Game");
         UIManager.put("Button.background", Color.gray);
         Icon icono = new ImageIcon(AppGuayaba.class.getResource("Guayaba.png"));
 
@@ -24,65 +25,54 @@ public class AppGuayaba
         while (seguir)
         {
             int opcionElegida = JOptionPane.showOptionDialog(null, "Bienvenidos al Juego de la Guayaba\n" +
-                            "                        Created By\n" + "        Esteban Colorado González", "Guayaba Game",
+                            "                        Created By\n" + "        Esteban Colorado González", juego.getNombreDelJuego(),
                     0, 0, icono, Arrays.asList("Jugar", "Instrucciones", "Salir").toArray(), "Jugar");
 
             switch (opcionElegida)
             {
-                case JUGAR: {
-                        int numeroJugadores = (int) JOptionPane.showInputDialog(null, "Ingrese la cantidad " +
-                                "de Jugadores: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                "2");
+                case JUGAR:
+                {
+                    int numeroJugadores = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad " +
+                                    "de Jugadores: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                            "2"));
 
-                        if (numeroJugadores < 2)
+                    if (numeroJugadores < 2)
+                    {
+                        mostrarMensaje("El numero de jugadores NO puede ser menor que 2");
+                    }
+                    else
+                    {
+
+
+                        for(int i = 0; i < numeroJugadores; i++)
                         {
-                            mostrarMensaje("El numero de jugadores NO puede ser menor que dos");
+                            String nombreJugador = (String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) +
+                                            "\nIngrese el nombre " + "del Jugador: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,
+                                    icono,null, "Nombre Completo");
+
+                            String nombreUsuario = (String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) + "\nIngrese " +
+                                            "el " + "nombre de Usuario: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                    "Rahegar");
+
+                            int dineroJugador = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) +
+                                            "\nIngrese el dinero " + "del Jugador: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                    "500"));
+
+                            Jugador jugador = new Jugador(nombreJugador,nombreUsuario,dineroJugador);
+
+                            juego.getJugadores().add(jugador);
                         }
-                        else{
-                            ArrayList<Jugador> Informacion = new ArrayList<>();
-                            Jugador informacionUsuario[] = new Jugador[3];
-                            Guayaba juego = new Guayaba(0, Informacion);
 
-                            for(int i = 0; i < numeroJugadores; i++)
-                            {
+                        juego.setPote(Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad de la " +
+                                        "apuesta (Pote) inicial: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                "0")));
 
-                                for(int j = 0; j < 3; j++)
-                                {
-                                    switch (j)
-                                    {
-                                        case 0:
-                                        {
-                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setNombre((String) JOptionPane.showInputDialog(null,
-                                                    "Usuario" + (i+1) + "\nIngrese el nombre del Jugador: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                                    "Nombre Completo"))));
-                                            break;
-                                        }
-                                        case 1:
-                                        {
-                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setNombreUsuario((String) JOptionPane.showInputDialog(null,
-                                                    "Usuario" + (i+1) + "\nIngrese el nombre de Usuario: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                                    "Nombre De Usuario"))));
-                                            break;
-                                        }
-                                        case 2:
-                                        {
-                                            juego.setJugadores(Informacion.add(i, informacionUsuario[j].setDinero((int) JOptionPane.showInputDialog(null,
-                                                    "Usuario" + (i+1) + "\nIngrese el nombre del Jugador: ", "Guayaba Game", JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                                    "0"))));
-                                            break;
-                                        }
-                                        default:
-                                        {
-                                            break;
-                                        }
-                                    }
 
-                                }
-                            }
-                        }
+                    }
                     break;
                 }
-                case INSTRUCCIONES: {
+                case INSTRUCCIONES:
+                {
                     mostrarMensaje("Instrucciones\n\n1. Debes determinar la cantidad de jugadores de la partida, y registrar a todos" +
                             " y cada uno de ellos.\n\n2. Todos empiezan con una cantidad de dinero inicial, y deben decidir la cantidad" +
                             " inicial a apostar.\n\n3. Cada jugador tirara de un dado, si el jugador saca 1 o 6 entonces pierde la " +
@@ -94,11 +84,13 @@ public class AppGuayaba
                             " sin dinero.\n");
                     break;
                 }
-                case SALIR: {
+                case SALIR:
+                {
                     seguir = false;
                     break;
                 }
-                default:{
+                default:
+                {
                     seguir = false;
                 }
             }
