@@ -45,12 +45,21 @@ public class Guayaba
         this.jugadores = jugadores;
     }
 
-    public void sumarPote(int pote, int numeroJugadores)
+    public int sumarPote(int pote, int numeroJugadores)
     {
         Guayaba juego = new Guayaba("Guayaba Game");
 
         juego.setPote(0);
 
         juego.setPote(juego.getPote() + (pote * numeroJugadores));
+
+        return juego.getPote();
+    }
+
+    public int tirarDado()
+    {
+        int dado = (int) (Math.random()*5);
+
+        return dado+1;
     }
 }

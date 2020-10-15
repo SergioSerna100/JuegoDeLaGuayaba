@@ -45,5 +45,12 @@ public class Jugador
         this.dinero = dinero;
     }
 
+    public void restarDinero(int Pote, Jugador jugador)
+    {
+        int resta = 0;
+        resta = jugador.getDinero() - Pote;
+        jugador.setDinero(resta);
+    }
+
 
 }

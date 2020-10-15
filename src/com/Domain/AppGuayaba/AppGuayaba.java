@@ -13,6 +13,8 @@ public class AppGuayaba
     public static final int JUGAR = 0;
     public static final int INSTRUCCIONES = 1;
     public static final int SALIR = 2;
+    public static final int TIRARDADO = 0;
+    public static final int PASARTURNO = 1;
 
     public static void main(String[] args)
     {
@@ -63,11 +65,122 @@ public class AppGuayaba
                             juego.getJugadores().add(jugador);
                         }
 
-                        juego.setPote(Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad de la " +
-                                        "apuesta (Pote) inicial: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                "0")));
+                        for(int i = 0; i < numeroJugadores; i++)
+                        {
+                            do
+                            {
+                                int poteInicial = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad de la " +
+                                                "apuesta (Pote) inicial: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                        "0"));
+
+                                juego.setPote(juego.sumarPote(poteInicial,numeroJugadores));
+                            }while(juego.getPote() >= juego.getJugadores().get(i).getDinero());
+                        }
+
+                        mostrarMensaje("El pote es " + juego.getPote());
+
+                        int pote = juego.getPote()/numeroJugadores;
+
+                        for(int i = 0; i < numeroJugadores; i++)
+                        {
+                            juego.getJugadores().get(i).restarDinero(pote,juego.getJugadores().get(i));
+                        }
+
+                        for (int i = 0; i< numeroJugadores; i++)
+                        {
+                            mostrarMensaje("Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                    juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero());
+                        }
 
 
+                        for (int i = 0; i< numeroJugadores; i++)
+                        {
+                            boolean seguir2 = true;
+
+                            while (seguir2)
+                            {
+                                int opcionElegida2 = JOptionPane.showOptionDialog(null, "¿Desea tirar el Dado?", juego.getNombreDelJuego(),
+                                        0, 0, icono, Arrays.asList("Tirar Dado", "Pasar Turno").toArray(), "Tirar Dado");
+
+                                switch (opcionElegida2)
+                                {
+                                    case TIRARDADO:
+                                    {
+                                        int Dado;
+
+                                        Dado = juego.tirarDado();
+                                        if(Dado == 1)
+                                        {
+                                            Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado" + Dado +".png"));
+                                            JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                    juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                    0,0,dado);
+                                        }
+                                        else
+                                        {
+                                            if(Dado == 2)
+                                            {
+                                                Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado " + Dado +".png"));
+                                                JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                                juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                        0,0,dado);
+                                            }
+                                            else
+                                            {
+                                                if(Dado == 3)
+                                                {
+                                                    Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado " + Dado +".png"));
+                                                    JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                                    juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                            0,0,dado);
+                                                }
+                                                else
+                                                {
+                                                    if(Dado == 4)
+                                                    {
+                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado " + Dado +".png"));
+                                                        JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                                        juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                                0,0,dado);
+                                                    }
+                                                    else
+                                                    {
+                                                        if(Dado == 5)
+                                                        {
+                                                            Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado " + Dado +".png"));
+                                                            JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                                            juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                                    0,0,dado);
+                                                        }
+                                                        else
+                                                        {
+                                                            if(Dado == 6)
+                                                            {
+                                                                Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado " + Dado +".png"));
+                                                                JOptionPane.showConfirmDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
+                                                                                juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + "\nEl dado que saco fue el " + Dado,juego.getNombreDelJuego(),
+                                                                        0,0,dado);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        break;
+                                    }
+                                    case PASARTURNO:
+                                    {
+                                        seguir2 = false;
+                                        break;
+                                    }
+                                    default:
+                                    {
+                                        seguir2 = false;
+                                    }
+                                }
+                            }
+                        }
                     }
                     break;
                 }
