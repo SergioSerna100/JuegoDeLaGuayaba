@@ -44,8 +44,6 @@ public class AppGuayaba
                     }
                     else
                     {
-
-
                         for(int i = 0; i < numeroJugadores; i++)
                         {
                             String nombreJugador = (String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) +
@@ -216,8 +214,6 @@ public class AppGuayaba
     {
         UIManager.put("Button.background", Color.gray);
 
-        Icon icono = new ImageIcon(AppGuayaba.class.getResource("Guayaba.png"));
-
         JOptionPane.showMessageDialog(null, mensaje, "Guayaba Game",JOptionPane.QUESTION_MESSAGE,icono);
     }
 
@@ -245,7 +241,13 @@ public class AppGuayaba
     {
         UIManager.put("Button.background", Color.gray);
 
-        int apuesta = elegirApuesta(juego);
+        int apuesta;
+
+        do
+        {
+            apuesta = elegirApuesta(juego);
+        }while(apuesta > juego.getJugadores().get(i).getDinero());
+
 
         int Dado2 = juego.tirarDado();
 
