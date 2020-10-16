@@ -121,7 +121,7 @@ public class AppGuayaba
                                                     case 1:
                                                     case 6:
                                                     {
-                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado" + Dado +".png"));
+                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado +".png"));
                                                         mostrarDado(juego, i, Dado,dado);
                                                         break;
                                                     }
@@ -130,7 +130,7 @@ public class AppGuayaba
                                                     case 4:
                                                     case 5:
                                                     {
-                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado" + Dado +".png"));
+                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado +".png"));
                                                         mostrarDado(juego, i, Dado,dado);
                                                         int opcionElegida3 = elegirAccion(juego, i);
 
