@@ -60,8 +60,6 @@ public class Guayaba
     }
     public int sumarPote(int pote,Guayaba juego)
     {
-        juego.setPote(0);
-
         juego.setPote(juego.getPote() + pote);
 
         return juego.getPote();
