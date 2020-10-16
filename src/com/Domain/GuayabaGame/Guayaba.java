@@ -1,5 +1,8 @@
 package com.Domain.GuayabaGame;
 
+import com.Domain.AppGuayaba.AppGuayaba;
+
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Guayaba
@@ -52,6 +55,16 @@ public class Guayaba
         juego.setPote(0);
 
         juego.setPote(juego.getPote() + (pote * numeroJugadores));
+
+        return juego.getPote();
+    }
+    public int restarPote(int pote, int numeroJugadores)
+    {
+        Guayaba juego = new Guayaba("Guayaba Game");
+
+        juego.setPote(0);
+
+        juego.setPote(juego.getPote() - (pote * numeroJugadores));
 
         return juego.getPote();
     }
