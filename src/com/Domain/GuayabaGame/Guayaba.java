@@ -48,7 +48,7 @@ public class Guayaba
         this.jugadores = jugadores;
     }
 
-    public int sumarPote(int pote, int numeroJugadores)
+    public int sumarPoteInicial(int pote, int numeroJugadores)
     {
         Guayaba juego = new Guayaba("Guayaba Game");
 
@@ -58,13 +58,17 @@ public class Guayaba
 
         return juego.getPote();
     }
-    public int restarPote(int pote, int numeroJugadores)
+    public int sumarPote(int pote,Guayaba juego)
     {
-        Guayaba juego = new Guayaba("Guayaba Game");
-
         juego.setPote(0);
 
-        juego.setPote(juego.getPote() - (pote * numeroJugadores));
+        juego.setPote(juego.getPote() + pote);
+
+        return juego.getPote();
+    }
+    public int restarPote(int pote,Guayaba juego)
+    {
+        juego.setPote(juego.getPote() - pote);
 
         return juego.getPote();
     }
@@ -72,7 +76,8 @@ public class Guayaba
     public int tirarDado()
     {
         int dado = (int) (Math.random()*5);
+        dado = dado+1;
 
-        return dado+1;
+        return dado;
     }
 }

@@ -55,7 +55,7 @@ public class Jugador
     public void sumarDinero(int Pote, Jugador jugador)
     {
         int resta = 0;
-        resta = jugador.getDinero() - Pote;
+        resta = jugador.getDinero() + Pote;
         jugador.setDinero(resta);
     }
 }
