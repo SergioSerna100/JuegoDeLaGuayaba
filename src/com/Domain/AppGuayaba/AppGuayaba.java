@@ -40,7 +40,7 @@ public class AppGuayaba
 
                     if (numeroJugadores < 1)
                     {
-                        mostrarMensaje("El numero de jugadores NO puede ser menor que 2");
+                        mostrarMensaje("El numero de jugadores NO puede ser menor que 1");
                     }
                     else
                     {
