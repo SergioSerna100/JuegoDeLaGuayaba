@@ -38,6 +38,12 @@ public class AppGuayaba
                                     "de Jugadores: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
                             "1"));
 
+                    int poteInicial = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad de la " +
+                                    "apuesta (Pote) inicial: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                            "0"));
+
+                    juego.setPote(juego.sumarPoteInicial(poteInicial,numeroJugadores));
+
                     if (numeroJugadores < 1)
                     {
                         mostrarMensaje("El numero de jugadores NO puede ser menor que 1");
@@ -54,9 +60,16 @@ public class AppGuayaba
                                             "el " + "nombre de Usuario: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
                                     "Rahegar");
 
-                            int dineroJugador = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) +
-                                            "\nIngrese el dinero " + "del Jugador: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                    "500"));
+                            int dineroJugador;
+
+                            do
+                            {
+                                dineroJugador = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Usuario # " + (i+1) +
+                                                "\nIngrese el dinero " + "del Jugador: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
+                                        "500"));
+
+
+                            }while(dineroJugador <= juego.getPote());
 
                             Jugador jugador = new Jugador(nombreJugador,nombreUsuario,dineroJugador);
 
@@ -65,14 +78,7 @@ public class AppGuayaba
 
                         for(int i = 0; i < numeroJugadores; i++)
                         {
-                            do
-                            {
-                                int poteInicial = Integer.parseInt((String) JOptionPane.showInputDialog(null, "Ingrese la cantidad de la " +
-                                                "apuesta (Pote) inicial: ", juego.getNombreDelJuego(), JOptionPane.OK_CANCEL_OPTION,icono,null,
-                                        "0"));
 
-                                juego.setPote(juego.sumarPoteInicial(poteInicial,numeroJugadores));
-                            }while(juego.getPote() >= juego.getJugadores().get(i).getDinero());
                         }
 
                         mostrarMensaje("El Pote Inicial es de " + juego.getPote() + " pesos.");
@@ -90,94 +96,75 @@ public class AppGuayaba
                                     juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + " pesos.");
                         }
 
-                        for (int i = 0; i< numeroJugadores; i++)
+                        do
                         {
-                            boolean seguir2 = true;
-
-                            while (seguir2)
+                            for (int i = 0; i< juego.getJugadores().size(); i++)
                             {
-                                if (juego.getPote() <= 0 || juego.getJugadores().get(i).getDinero() <= 0)
+                                int opcionElegida2 = elegirAccion(juego, i);
+                                switch (opcionElegida2)
                                 {
-                                    if (juego.getJugadores().get(i).getDinero() <= 0)
+                                    case TIRARDADO:
                                     {
-                                        juego.getJugadores().remove(juego.getJugadores().get(i));
-                                    }
-                                    seguir2 = false;
-                                }
-                                else
-                                {
-                                    do
-                                    {
-                                        int opcionElegida2 = elegirAccion(juego, i);
-                                        switch (opcionElegida2)
+                                        int Dado = juego.tirarDado();
+                                        switch (Dado)
                                         {
-                                            case TIRARDADO:
+                                            case 1:
+                                            case 6:
                                             {
-                                                int Dado = juego.tirarDado();
-                                                switch (Dado)
+
+                                                mostrarDado(juego, i, Dado);
+                                                break;
+                                            }
+                                            case 2:
+                                            case 3:
+                                            case 4:
+                                            case 5:
+                                            {
+                                                mostrarDado(juego, i, Dado);
+                                                int opcionElegida3 = elegirAccion(juego, i);
+
+                                                switch (opcionElegida3)
                                                 {
-                                                    case 1:
-                                                    case 6:
+                                                    case TIRARDADO:
                                                     {
-                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado +".png"));
-                                                        mostrarDado(juego, i, Dado,dado);
+                                                        evaluarApuesta(juego,i,Dado);
                                                         break;
                                                     }
-                                                    case 2:
-                                                    case 3:
-                                                    case 4:
-                                                    case 5:
+                                                    case PASARTURNO:
                                                     {
-                                                        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado +".png"));
-                                                        mostrarDado(juego, i, Dado,dado);
-                                                        int opcionElegida3 = elegirAccion(juego, i);
-
-                                                        switch (opcionElegida3)
-                                                        {
-                                                            case TIRARDADO:
-                                                            {
-                                                                evaluarApuesta(juego,i,Dado,dado);
-                                                                break;
-                                                            }
-                                                            case PASARTURNO:
-                                                            {
-                                                                seguir2 = false;
-                                                                break;
-                                                            }
-                                                            default:
-                                                            {
-                                                                seguir2 = false;
-                                                            }
-                                                        }
                                                         break;
                                                     }
                                                 }
                                                 break;
                                             }
-                                            case PASARTURNO:
-                                            {
-                                                seguir2 = false;
-                                                break;
-                                            }
-                                            default:
-                                            {
-                                                seguir2 = false;
-                                            }
                                         }
-                                    }while(juego.getPote() < 0 || juego.getJugadores().size() == 0);
+                                        break;
+                                    }
+                                    case PASARTURNO:
+                                    {
+                                        break;
+                                    }
+                                }
+                                if (juego.getPote() <= 0)
+                                {
+                                    break;
                                 }
                             }
-                        }
-                        if (juego.getJugadores().size() == 0)
+                        }while(juego.getPote() >= 0 && juego.getJugadores() != null);
+
+                        if (juego.getJugadores() == null)
                         {
                             mostrarMensaje("¡Han perdido el juego!\nLos Jugadores se han quedado sin dinero.\nEl pote quedo con un valor de " + juego.getPote() + " pesos.");
                         }
                         else
                         {
-                            for (int i = 0; i < juego.getJugadores().size();i++)
+                            if (juego.getPote() <= 0)
                             {
-                                mostrarMensaje("¡El Jugador " + (i+1) + " Ha Ganado el Juego!\nNombre: " + juego.getJugadores().get(i).getNombre() + "\n" +
-                                        "Usuario: " + juego.getJugadores().get(i).getNombreUsuario() + "\nDinero Final: " + juego.getJugadores().get(i).getDinero() + " pesos.");
+                                for (int i = 0; i < juego.getJugadores().size();i++)
+                                {
+                                    mostrarMensaje("¡El Jugador " + (i+1) + " Ha Ganado el Juego!\nNombre: " + juego.getJugadores().get(i).getNombre() + "\n" +
+                                            "Usuario: " + juego.getJugadores().get(i).getNombreUsuario() + "\nDinero Final: " + juego.getJugadores().get(i).getDinero() + " pesos.");
+                                }
                             }
                         }
 
@@ -221,7 +208,7 @@ public class AppGuayaba
     {
         UIManager.put("Button.background", Color.gray);
 
-        int opcionElegida2 = JOptionPane.showOptionDialog(null, "Pote Actual: " + juego.getPote() + " pesos.\nJugador # " + (i+1) + "\n¿Desea tirar el Dado?", juego.getNombreDelJuego(),
+        int opcionElegida2 = JOptionPane.showOptionDialog(null, "Pote Actual: " + juego.getPote() + " pesos.\nJugador " + juego.getJugadores().get(i).getNombre() + "\n¿Desea tirar el Dado?", juego.getNombreDelJuego(),
                 0, 0, icono, Arrays.asList("Tirar Dado", "Pasar Turno").toArray(), "Tirar Dado");
 
         return opcionElegida2;
@@ -237,7 +224,7 @@ public class AppGuayaba
                 "0"));
     }
 
-    public static void evaluarApuesta(Guayaba juego, int i, int Dado,Icon dado)
+    public static void evaluarApuesta(Guayaba juego, int i, int Dado)
     {
         UIManager.put("Button.background", Color.gray);
 
@@ -251,12 +238,14 @@ public class AppGuayaba
 
         int Dado2 = juego.tirarDado();
 
+        Icon dado2 = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado2 +".png"));
+
         if (Dado2 > Dado)
         {
             juego.getJugadores().get(i).sumarDinero(apuesta,juego.getJugadores().get(i));
             JOptionPane.showMessageDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
                     juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() +
-                    " pesos.\nEl dado que saco fue el " + Dado2 + " por lo tanto ganó el monto por el que apostó.",juego.getNombreDelJuego(),0,dado);
+                    " pesos.\nEl dado que saco fue el " + Dado2 + " por lo tanto ganó el monto por el que apostó.",juego.getNombreDelJuego(),0,dado2);
             juego.restarPote(apuesta,juego);
         }
         else
@@ -264,13 +253,19 @@ public class AppGuayaba
             juego.getJugadores().get(i).restarDinero(100,juego.getJugadores().get(i));
             JOptionPane.showMessageDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
                     juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + " pesos.\nEl dado que saco fue el " + Dado2 + " por lo tanto " +
-                    "pierde el turno y 100 pesos de su dinero.",juego.getNombreDelJuego(),0,dado);
+                    "pierde el turno y 100 pesos de su dinero.",juego.getNombreDelJuego(),0,dado2);
             juego.sumarPote(100,juego);
+
+            if (juego.getJugadores().get(i).getDinero() <= 0 )
+            {
+                juego.getJugadores().remove(juego.getJugadores().get(i));
+            }
         }
     }
 
-    public static void mostrarDado(Guayaba juego, int i, int Dado,Icon dado)
+    public static void mostrarDado(Guayaba juego, int i, int Dado)
     {
+        Icon dado = new ImageIcon(AppGuayaba.class.getResource("Dado_" + Dado +".png"));
         UIManager.put("Button.background", Color.gray);
 
         if (Dado == 1 || Dado == 6)
@@ -278,8 +273,6 @@ public class AppGuayaba
             JOptionPane.showMessageDialog(null,"Jugador # " + (i+1) + "\nNombre: " + juego.getJugadores().get(i).getNombre() + "\nUsuario: " +
                     juego.getJugadores().get(i).getNombreUsuario() +"\nDinero: " + juego.getJugadores().get(i).getDinero() + " pesos.\nEl dado que saco fue el " + Dado+ " por lo tanto" +
                     " pierde el turno.",juego.getNombreDelJuego(),0,dado);
-
-
         }
         else
         {
